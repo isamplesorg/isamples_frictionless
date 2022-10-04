@@ -1,7 +1,8 @@
 import json
 from typing import Optional
 
-from frictionless import Package, Resource, Schema, FrictionlessException
+from frictionless import Package, Resource, Schema, FrictionlessException, Report
+from tabulate import tabulate
 
 DEFAULT_SCHEMA_FILE_NAME = "isamples_simple_schema.json"
 
@@ -27,3 +28,8 @@ def create_isamples_package(schema: Schema, file_path: str) -> Package:
     data_resource = Resource(source=file_path, schema=schema, trusted=True)
     package = Package(resources=[data_resource], name="isamples", title="isamples", id="isamples", trusted=True)
     return package
+
+
+def report_errors_as_str(report: Report) -> str:
+    errors = report.flatten(['code', 'message'])
+    return tabulate(errors, headers=['code', 'message'])
