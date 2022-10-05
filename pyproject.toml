@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "isamples_frictionless"
-version = "0.1.3"
-description = ""
+version = "0.1.4"
+description = "iSamples integration with frictionless.io"
 authors = ["Danny Mandel <danny.mandel@gmail.com>"]
 
 [tool.poetry.dependencies]
