@@ -1,4 +1,3 @@
-import json
 from typing import Optional
 from pathlib import Path
 import os.path
@@ -7,6 +6,7 @@ from tabulate import tabulate
 
 DEFAULT_SCHEMA_FILE_NAME = "isamples_simple_schema.json"
 ISAMPLES_SIMPLE_SCHEMA = None
+
 
 def check_valid_schema_json(schema_file_path: str) -> Optional[Schema]:
     try:
@@ -39,7 +39,6 @@ def isamples_simple_schema() -> Schema:
     global ISAMPLES_SIMPLE_SCHEMA
     if ISAMPLES_SIMPLE_SCHEMA is None:
         p = Path(__file__)
-        SCHEMA_JSON = {}
         schema_json_path = os.path.join(p.parent, "isamples_simple_schema.json")
         ISAMPLES_SIMPLE_SCHEMA = check_valid_schema_json(schema_json_path)
     return ISAMPLES_SIMPLE_SCHEMA
