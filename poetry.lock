@@ -86,6 +86,14 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "et-xmlfile"
+version = "1.1.0"
+description = "An implementation of lxml.xmlfile for the standard library"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "frictionless"
 version = "4.40.8"
 description = "Data management framework for Python that provides functionality to describe, extract, validate, and transform tabular data"
@@ -99,6 +107,7 @@ isodate = ">=0.6"
 jinja2 = ">=3.0.3"
 jsonschema = ">=2.5"
 marko = ">=1.0"
+openpyxl = {version = ">=3.0", optional = true, markers = "extra == \"excel\""}
 petl = ">=1.6"
 python-dateutil = ">=2.8"
 python-slugify = ">=1.2"
@@ -107,9 +116,12 @@ requests = ">=2.10"
 rfc3986 = ">=1.4"
 simpleeval = ">=0.9.11"
 stringcase = ">=1.2"
+tableschema-to-template = {version = ">=0.0.12", optional = true, markers = "extra == \"excel\""}
 tabulate = ">=0.8.10"
 typer = {version = ">=0.5", extras = ["all"]}
 validators = ">=0.18"
+xlrd = {version = ">=1.2", optional = true, markers = "extra == \"excel\""}
+xlwt = {version = ">=1.2", optional = true, markers = "extra == \"excel\""}
 
 [package.extras]
 bigquery = ["google-api-python-client (>=1.12.1)"]
@@ -202,6 +214,17 @@ description = "More routines for operating on iterables, beyond itertools"
 category = "dev"
 optional = false
 python-versions = ">=3.5"
+
+[[package]]
+name = "openpyxl"
+version = "3.0.10"
+description = "A Python library to read/write Excel 2010 xlsx/xlsm files"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+et-xmlfile = "*"
 
 [[package]]
 name = "packaging"
@@ -419,12 +442,25 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "tableschema-to-template"
+version = "0.0.12"
+description = "Given a Frictionless Table Schema, generates an Excel template with input validation"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+jsonschema = ">=1.0.0"
+pyyaml = ">=3.13"
+xlsxwriter = ">=1.2.8"
+
+[[package]]
 name = "tabulate"
-version = "0.8.10"
+version = "0.9.0"
 description = "Pretty-print tabular data"
 category = "main"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+python-versions = ">=3.7"
 
 [package.extras]
 widechars = ["wcwidth"]
@@ -492,10 +528,39 @@ category = "dev"
 optional = false
 python-versions = "*"
 
+[[package]]
+name = "xlrd"
+version = "2.0.1"
+description = "Library for developers to extract data from Microsoft Excel (tm) .xls spreadsheet files"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
+
+[package.extras]
+test = ["pytest-cov", "pytest"]
+docs = ["sphinx"]
+build = ["twine", "wheel"]
+
+[[package]]
+name = "xlsxwriter"
+version = "3.0.3"
+description = "A Python module for creating Excel XLSX files."
+category = "main"
+optional = false
+python-versions = ">=3.4"
+
+[[package]]
+name = "xlwt"
+version = "1.3.0"
+description = "Library to create spreadsheet files compatible with MS Excel 97/2000/XP/2003 XLS files, on any platform, with Python 2.6, 2.7, 3.3+"
+category = "main"
+optional = false
+python-versions = "*"
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "0376e569f2180b1fa11e111501275d1b89e7181f9b4b18af474004ba859d42a6"
+content-hash = "c1b1fa2de04a22c9c93cac0197e60e740c7b69208d57881a75126cec5088c2dd"
 
 [metadata.files]
 atomicwrites = []
@@ -516,6 +581,7 @@ decorator = [
     {file = "decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186"},
     {file = "decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"},
 ]
+et-xmlfile = []
 frictionless = []
 idna = []
 isodate = []
@@ -565,6 +631,7 @@ markupsafe = [
     {file = "MarkupSafe-2.1.1.tar.gz", hash = "sha256:7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"},
 ]
 more-itertools = []
+openpyxl = []
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
     {file = "packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
@@ -660,6 +727,7 @@ six = [
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
 stringcase = []
+tableschema-to-template = []
 tabulate = []
 text-unidecode = []
 typer = []
@@ -669,3 +737,6 @@ wcwidth = [
     {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},
     {file = "wcwidth-0.2.5.tar.gz", hash = "sha256:c4d647b99872929fdb7bdcaa4fbe7f01413ed3d98077df798530e5b04f116c83"},
 ]
+xlrd = []
+xlsxwriter = []
+xlwt = []

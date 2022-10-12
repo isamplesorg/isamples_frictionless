@@ -6,7 +6,7 @@ authors = ["Danny Mandel <danny.mandel@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-frictionless = "4.40.8"
+frictionless = {version="4.40.8", extras=["excel"]}
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
