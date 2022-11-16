@@ -3,8 +3,7 @@ import io
 from typing import Optional
 from pathlib import Path
 import os.path
-from frictionless import Package, Pipeline, Resource, Schema, Step, FrictionlessException, Report, transform, steps, \
-    validate
+from frictionless import Package, Resource, Schema, Step, FrictionlessException, Report, transform
 from tabulate import tabulate
 
 DEFAULT_SCHEMA_FILE_NAME = "isamples_simple_schema.json"
@@ -74,14 +73,12 @@ class _PopulateIdentifiersStep(Step):
         # This function is called to replace the data contained in the resource.
         def data():
             with current:
-                column_length = 0
                 index = 0
                 template_row = None
                 # The first two rows in the template are the column titles and a placeholder row.
                 for list in current.list_stream:
                     if index == 0:
                         # Column titles, return as-is.
-                        column_length = len(list)
                         yield list
                     elif index == 1:
                         # Placeholder row, save it for later to use when we populate the latter rows
@@ -97,6 +94,7 @@ class _PopulateIdentifiersStep(Step):
 
         # Replace the data by setting a custom function that generates the data.
         resource.data = data
+
 
 def insert_identifiers_into_template(identifiers: list[str]) -> str:
     source = isamples_simple_template()
