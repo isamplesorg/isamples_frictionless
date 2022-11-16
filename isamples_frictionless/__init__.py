@@ -1,3 +1,5 @@
+import csv
+import io
 from typing import Optional
 from pathlib import Path
 import os.path
@@ -96,9 +98,14 @@ class _PopulateIdentifiersStep(Step):
         # Replace the data by setting a custom function that generates the data.
         resource.data = data
 
-def insert_identifiers_into_template(identifiers: list[str]):
+def insert_identifiers_into_template(identifiers: list[str]) -> str:
     source = isamples_simple_template()
     target = transform(source.resources[0], steps=[_PopulateIdentifiersStep(identifiers)])
-    print()
-    # print(target.schema)
-    print(target.to_view())
+    stream = io.StringIO()
+    writer = csv.writer(stream)
+    for number, row in enumerate(target.read_rows()):
+        if number == 0:
+            writer.writerow(row.field_names)
+        writer.writerow(row.to_list())
+    result = stream.getvalue().rstrip("\r\n")
+    return result
